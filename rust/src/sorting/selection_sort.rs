@@ -1,4 +1,4 @@
-pub fn selection_sort(nums: &mut Vec<u32>) {
+pub fn selection_sort(nums: &mut Vec<i32>) {
     for i in 0..nums.len() {
         let mut min = i;
         let mut j = i + 1;
@@ -11,9 +11,7 @@ pub fn selection_sort(nums: &mut Vec<u32>) {
         }
 
         if min != i {
-            let temp = nums[min];
-            nums[min] = nums[i];
-            nums[i] = temp;
+            nums.swap(min, i);
         }
     }
 }
