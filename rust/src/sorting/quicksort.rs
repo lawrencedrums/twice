@@ -16,7 +16,6 @@ fn quicksort_helper<T: Ord>(nums: &mut [T], low: isize, high: isize) {
     }
 }
 
-// TODO: refactor this
 fn partition<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) -> isize {
     let pivot = high as usize;
     let mut left = low - 1;
@@ -32,4 +31,30 @@ fn partition<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) -> isize {
 
     nums.swap((left + 1) as usize, pivot);
     left + 1
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_sort() {
+        let mut nums = vec![3, 2, 4, 1, 5];
+        quicksort(&mut nums);
+        assert_eq!(nums, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn test_sort_empty_array() {
+        let mut nums = Vec::<i32>::new();
+        quicksort(&mut nums);
+        assert_eq!(nums, vec![]);
+    }
+
+    #[test]
+    fn test_sort_one_element() {
+        let mut nums = vec![1];
+        quicksort(&mut nums);
+        assert_eq!(nums, vec![1]);
+    }
 }
