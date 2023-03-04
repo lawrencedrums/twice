@@ -1,4 +1,8 @@
 pub fn bubble_sort(nums: &mut Vec<i32>) {
+    if nums.len() == 0 {
+        break;
+    }
+
     loop {        
         let mut swapped = false;
 
@@ -25,12 +29,14 @@ mod tests {
         assert_eq!(nums, vec![1, 3, 5, 6, 9]);
     }
 
+    #[test]
     fn test_sort_empty_array() {
         let mut nums = Vec::<i32>::new();
         bubble_sort(&mut nums);
         assert_eq!(nums, vec![]);
     }
 
+    #[test]
     fn test_sort_one_element() {
         let mut nums = vec![1];
         bubble_sort(&mut nums);
