@@ -5,7 +5,7 @@ mod sorting;
 
 
 fn main() {
-    let size = 20;
+    let size = 200;
 
     let mut rng = thread_rng();
     let mut nums: Vec<i32> = (0..size).collect();
@@ -16,7 +16,9 @@ fn main() {
     // sorting::selection_sort::selection_sort(&mut nums);
     // sorting::insertion_sort::insertion_sort(&mut nums);
     sorting::quicksort::quicksort(&mut nums, 0, (size-1) as usize);
+    // sorting::merge_sort::top_down_merge_sort(&mut nums);
 
-    println!("{nums:?}");
+    // println!("{nums:?}");
     assert_eq!(nums, sorted);
+    println!("sorted!")
 }

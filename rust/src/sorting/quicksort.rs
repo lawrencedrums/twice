@@ -9,16 +9,20 @@ pub fn quicksort<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) {
     }
 }
 
+// TODO: refactor this
 fn partition<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) -> usize {
     let pivot = high;
-    let mut left = low;
-    let mut right = high-1;
+    let mut left = low - 1;
+    let mut right = high;
 
     loop {
+        left += 1;
         while nums[left] < nums[pivot] {
             left += 1;
         }
-        while nums[right] > nums[pivot] {
+
+        right -= 1;
+        while right > 0 && nums[right] > nums[pivot] {
             right -= 1;
         }
 
@@ -28,6 +32,6 @@ fn partition<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) -> usize {
             nums.swap(left, right);
         }
     }
-    nums.swap(left, high);
+    nums.swap(left, pivot);
     left
 }
