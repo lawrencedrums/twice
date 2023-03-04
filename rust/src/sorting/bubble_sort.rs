@@ -1,5 +1,5 @@
 pub fn bubble_sort(nums: &mut Vec<i32>) {
-    for _ in 0..nums.len() {
+    loop {        
         let mut swapped = false;
 
         for i in 1..nums.len() {
