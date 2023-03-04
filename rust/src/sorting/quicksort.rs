@@ -1,11 +1,18 @@
 use std::cmp::PartialOrd;
 
 
-pub fn quicksort<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) {
+pub fn quicksort<T: Ord>(nums: &mut [T]) {
+    let len = nums.len();
+    if len > 1 {
+        quicksort_helper(nums, 0, (len - 1) as isize);
+    }
+}
+
+fn quicksort_helper<T: Ord>(nums: &mut [T], low: isize, high: isize) {
     if low < high {
         let pivot = partition(nums, low, high);
-        quicksort(nums, low, pivot-1);
-        quicksort(nums, pivot+1, high);
+        quicksort_helper(nums, low, pivot-1);
+        quicksort_helper(nums, pivot+1, high);
     }
 }
 
