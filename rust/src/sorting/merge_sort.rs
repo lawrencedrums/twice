@@ -28,3 +28,29 @@ fn merge<T: Ord + Copy>(nums: &mut [T], mid: usize) {
 		}
 	}
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_sort() {
+        let mut nums = vec![3, 2, 4, 1, 5];
+        top_down_merge_sort(&mut nums);
+        assert_eq!(nums, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn test_sort_empty_array() {
+        let mut nums = Vec::<i32>::new();
+        top_down_merge_sort(&mut nums);
+        assert_eq!(nums, vec![]);
+    }
+
+    #[test]
+    fn test_sort_one_element() {
+        let mut nums = vec![1];
+        top_down_merge_sort(&mut nums);
+        assert_eq!(nums, vec![1]);
+    }
+}
