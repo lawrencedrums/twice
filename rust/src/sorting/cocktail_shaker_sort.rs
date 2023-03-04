@@ -1,9 +1,9 @@
 pub fn cocktail_shaker_sort<T: Ord>(nums: &mut [T]) {
-	if nums.len() < 1 {
+	let len = nums.len();
+
+	if len == 0 {
 		return;
 	}
-
-	let len = nums.len();
 
 	loop {
 		let mut swapped = false;

@@ -1,4 +1,8 @@
 pub fn insertion_sort(nums: &mut Vec<i32>) {
+    if nums.is_empty() {
+        return;
+    }
+
     for i in 1..nums.len() {
         let mut j = i;
         let key = nums[i];

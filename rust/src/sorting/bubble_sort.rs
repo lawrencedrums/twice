@@ -1,6 +1,6 @@
 pub fn bubble_sort(nums: &mut Vec<i32>) {
-    if nums.len() == 0 {
-        break;
+    if nums.is_empty() {
+        return;
     }
 
     loop {        
