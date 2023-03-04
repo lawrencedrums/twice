@@ -1,7 +1,7 @@
 use std::cmp::PartialOrd;
 
 
-pub fn quicksort<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) {
+pub fn quicksort<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) {
     if low < high {
         let pivot = partition(nums, low, high);
         quicksort(nums, low, pivot-1);
@@ -10,28 +10,19 @@ pub fn quicksort<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) {
 }
 
 // TODO: refactor this
-fn partition<T: PartialOrd>(nums: &mut [T], low: usize, high: usize) -> usize {
-    let pivot = high;
+fn partition<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) -> isize {
+    let pivot = high as usize;
     let mut left = low - 1;
-    let mut right = high;
+    let mut right = low;
 
-    loop {
-        left += 1;
-        while nums[left] < nums[pivot] {
+    while right < high {
+        if nums[right as usize] < nums[pivot as usize] {
             left += 1;
+            nums.swap(left as usize, right as usize);
         }
-
-        right -= 1;
-        while right > 0 && nums[right] > nums[pivot] {
-            right -= 1;
-        }
-
-        if left >= right {
-            break;
-        } else {
-            nums.swap(left, right);
-        }
+        right += 1;
     }
-    nums.swap(left, pivot);
-    left
+
+    nums.swap((left + 1) as usize, pivot);
+    left + 1
 }

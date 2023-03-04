@@ -15,7 +15,7 @@ fn main() {
     // sorting::bubble_sort::bubble_sort(&mut nums);
     // sorting::selection_sort::selection_sort(&mut nums);
     // sorting::insertion_sort::insertion_sort(&mut nums);
-    sorting::quicksort::quicksort(&mut nums, 0, (size-1) as usize);
+    sorting::quicksort::quicksort(&mut nums, 0, (size-1) as isize);
     // sorting::merge_sort::top_down_merge_sort(&mut nums);
 
     // println!("{nums:?}");
