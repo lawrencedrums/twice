@@ -82,5 +82,19 @@ mod tests {
 		let mut nums = vec!(3, 2, 1, 0, 8, 4, 6, 7, 5, 9);
 		timsort(&mut nums);
 		assert_eq!(nums, vec!(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-	}
+    }
+
+    #[test]
+    fn test_sort_empty() {
+        let mut nums = Vec::<i32>::new();
+        timsort(&mut nums);
+        assert_eq!(nums, vec!());
+    }
+
+    #[test]
+    fn test_sort_single_element() {
+        let mut nums = vec!(1);
+        timsort(&mut nums);
+        assert_eq!(nums, vec!(1));
+    }
 }
