@@ -12,12 +12,7 @@ fn main() {
     let sorted: Vec<i32> = (0..size).collect();
 
     nums.shuffle(&mut rng);
-    // sorting::bubble_sort::bubble_sort(&mut nums);
-    sorting::cocktail_shaker_sort::cocktail_shaker_sort(&mut nums);
-    // sorting::selection_sort::selection_sort(&mut nums);
-    // sorting::insertion_sort::insertion_sort(&mut nums);
-    // sorting::quicksort::quicksort(&mut nums, 0, (size-1) as isize);
-    // sorting::merge_sort::top_down_merge_sort(&mut nums);
+    sorting::timsort::timsort(&mut nums);
 
     // println!("{nums:?}");
     assert_eq!(nums, sorted);
