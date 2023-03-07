@@ -34,9 +34,7 @@ fn counting_sort(nums: &mut Vec<i32>, place: i32) {
 		res[counter[digit as usize]] = nums[i];
 	}
 	
-	for i in 0..len {
-		nums[i] = res[i];
-	}
+	*nums = res;
 }
 
 #[cfg(test)]
