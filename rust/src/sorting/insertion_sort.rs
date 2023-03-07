@@ -1,4 +1,4 @@
-pub fn insertion_sort(nums: &mut Vec<i32>) {
+pub fn insertion_sort<T: Ord + Copy>(nums: &mut [T]) {
     if nums.is_empty() {
         return;
     }

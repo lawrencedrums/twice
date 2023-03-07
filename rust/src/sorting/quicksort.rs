@@ -22,7 +22,7 @@ fn partition<T: PartialOrd>(nums: &mut [T], low: isize, high: isize) -> isize {
     let mut right = low;
 
     while right < high {
-        if nums[right as usize] < nums[pivot as usize] {
+        if nums[right as usize] < nums[pivot] {
             left += 1;
             nums.swap(left as usize, right as usize);
         }

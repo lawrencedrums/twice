@@ -18,7 +18,6 @@ pub fn bottom_up_merge_sort<T: Ord + Copy>(nums: &mut [T]) {
 	}
 
 	let len = nums.len();
-	let high_idx = len - 1;
 	let mut subarray_len = 1;
 
 	while subarray_len < len {
