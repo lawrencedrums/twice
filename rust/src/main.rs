@@ -2,6 +2,7 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::time::{Duration, Instant};
 
+mod reinforcement_learning;
 mod sorting;
 
 
