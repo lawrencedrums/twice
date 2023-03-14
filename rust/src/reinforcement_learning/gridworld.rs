@@ -3,24 +3,22 @@ use rand::prelude::SliceRandom;
 
 #[derive(Debug)]
 pub struct GridWorld {
-	num_row: i32,
-	num_col: i32,
-	num_cell: i32,
+	num_row: usize,
+	num_col: usize,
 	random_move_probability: f64,
-	agent_position: i32,
-	bomb_position: i32,
-	gold_position: i32,
+	agent_position: usize,
+	bomb_position: usize,
+	gold_position: usize,
 	actions: Vec<String>,
 }
 
 impl GridWorld {
-	pub fn new(num_row: i32, num_col: i32, random_move_probability: f64) -> Self {
+	pub fn new(num_row: usize, num_col: usize, random_move_probability: f64) -> Self {
 		let mut rng = rand::thread_rng();
 
 		GridWorld {
 			num_row,
 			num_col,
-			num_cell: num_row * num_col,
 			random_move_probability,
 			// choose agent to start randomly among the first row
 			agent_position: rng.gen_range(0..num_row),
@@ -28,11 +26,16 @@ impl GridWorld {
 			bomb_position: 18,
 			gold_position: 23,
 			// specify available actions
-			actions: vec!["UP".to_string(), "RIGHT".to_string(), "DOWN".to_string(), "LEFT".to_string()],
+			actions: vec![
+				"UP".to_string(),
+				"RIGHT".to_string(),
+				"DOWN".to_string(),
+				"LEFT".to_string()
+			],
 		}
 	}
 
-	pub fn make_step(&mut self, mut action_index: usize) -> (i32, i32) {
+	pub fn make_step(&mut self, mut action_index: usize) -> (i32, usize) {
 		// randomly sample action_index if world is stochastic
 		let mut rng = rand::thread_rng();
 		if rng.gen::<f64>() < self.random_move_probability {
@@ -41,7 +44,12 @@ impl GridWorld {
 			for i in 0..self.actions.len() {
 				action_indices.push(i);
 			}
-			action_indices.remove(action_indices.iter().position(|x| *x == action_index).expect("not found"));
+			action_indices.remove(
+				action_indices
+				.iter()
+				.position(|x| *x == action_index)
+				.expect("not found")
+			);
 			action_index = *action_indices.choose(&mut rng).unwrap();
 		}
 		let action = &self.actions[action_index];
@@ -51,7 +59,7 @@ impl GridWorld {
 		let mut new_position = self.agent_position;
 		if action == "UP" {
 			let candidate_position = old_position + self.num_col;
-			if candidate_position < self.num_cell {
+			if candidate_position < self.num_row * self.num_col {
 				new_position = candidate_position;
 			}
 		} else if action == "RIGHT" {
@@ -60,12 +68,12 @@ impl GridWorld {
 				new_position = candidate_position;
 			}
 		} else if action == "DOWN" {
-			let candidate_position = old_position - self.num_col;
+			let candidate_position = old_position.saturating_sub(self.num_col);
 			if candidate_position >= 0 {
 				new_position = candidate_position;
 			}
 		} else if action == "LEFT" {
-			let candidate_position = old_position - 1;
+			let candidate_position = old_position.saturating_sub(1);
 			if candidate_position % self.num_col < self.num_col - 1 {
 				new_position = candidate_position;
 			}
@@ -88,20 +96,24 @@ impl GridWorld {
 		(reward, new_position)
 	}
 
-	fn is_game_over(&self) -> bool {
+	pub fn get_agent_position(&mut self) -> usize {
+		self.agent_position
+	}
+
+	pub fn is_game_over(&mut self) -> bool {
 		if self.agent_position == self.bomb_position || self.agent_position == self.gold_position {
 			return true;
 		}
 		false
 	}
 
-	fn get_available_actions(&self) -> &Vec<String> {
-		&self.actions
+	pub fn get_available_actions(&mut self) -> Vec<String> {
+		self.actions.to_vec()
 	}
 
-	fn reset(&mut self) {
+	pub fn reset(&mut self) {
 		let mut rng = rand::thread_rng();
-		self.agent_position = rng.gen_range(0..self.num_row);
+		self.agent_position = rng.gen_range(0..self.num_row) as usize;
 	}
 }
 
